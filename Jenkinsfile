@@ -44,8 +44,8 @@ podTemplate(
             container ('docker') {
                 // def registryIp = sh(script: 'getent hosts registry.kube-system | awk \'{ print $1 ; exit }\'', returnStdout: true).trim()      
                     sh "echo '${env.DOCKER_HUB_TOKEN}' | docker login --username ${env.DOCKER_HUB_USER} --password-stdin"
-                    sh "docker build -t hello:${commitId} ."
-                    sh "docker push hello:${commitId}"
+                    sh "docker build -t ${env.DOCKER_HUB_USER}/hello:${commitId} ."
+                    sh "docker push ${env.DOCKER_HUB_USER}/hello:${commitId}"
                 
             }
         }
